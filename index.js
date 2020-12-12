@@ -3,24 +3,18 @@ function isBalanced(str) {
         "[" : "]",
         "(" : ")",
         "{" : "}",
-        "]" : "[",
-        ")" : "(",
-        "}" : "{"
     }
 
-    let brackets = []
+    let brackets = [];
 
-    for (let i = 0; i < str.length; i++) {
-        let pair = pairs[str[i]];
-        
-        if (brackets.length === 0 || brackets[brackets.length-1] !== pair) {
-            brackets.push(str[i]);
-        } else {
-            brackets = brackets.slice(0, brackets.length-1);
+    for (let char of str) {
+        if (pairs[char]) {
+            brackets.push(char);            
+        } 
+        else if (char === pairs[brackets[brackets.length-1]]) {
+            brackets.pop();
         }
     }
 
     return brackets.length === 0;
 }
-
-console.log(isBalanced("([])[{}]{(([))}"));
